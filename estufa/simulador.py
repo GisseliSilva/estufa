@@ -12,7 +12,7 @@ class SimuladorEstufa:
     def __init__(self):
         self.temperatura = 25.0
         self.umidade = 70.0
-        self.cliente = mqtt.Cliente(mqtt.CallbackAPIVersion.VERSION2)
+        self.client = mqtt.Cliente(mqtt.CallbackAPIVersion.VERSION2)
         self.client.on_connect = self.on_connect
     
     def on_connect(self, cliente, userdata, flags, rc):
@@ -33,7 +33,7 @@ class SimuladorEstufa:
         self.umidade = max(30, min(95, self.umidade))
 
     def publicar(self):
-        self.publicar_dados()
+        self.simular_dados()
 
         self.client.publish(TOPICO_TEMP, f"{self.temperatura: 2f}")
         print(f"Temperatura: {self.temperatura:.2f}ºC")
